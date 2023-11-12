@@ -56,6 +56,7 @@ export class AddPlantComponent {
       description: '',
       tasks: []
     };
+    this.tasksForm = new FormArray<any>([]);
   }
 
   addTasksForm() {
