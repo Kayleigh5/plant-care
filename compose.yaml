@@ -1,0 +1,23 @@
+services:
+
+  frontend:
+    container_name: frontend
+    image: kayleigh/frontend
+    build: ./frontend
+    ports:
+      - "4200:80"
+
+  backend:
+    container_name: backend
+    image: kayleigh/backend
+    build: ./backend
+    ports:
+      - "8080:8080"
+    volumes:
+      - db-data:/data/db
+
+volumes:
+  db-data:
+
+# Build and run with:
+# docker compose up --build
