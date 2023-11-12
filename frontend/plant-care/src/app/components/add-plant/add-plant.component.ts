@@ -55,4 +55,8 @@ export class AddPlantComponent {
   addTasksForm() {
     this.tasksForm.push(new FormControl(''));
   }
+
+  removeTask(index: number) {
+    this.tasksForm.removeAt(index);
+  }
 }

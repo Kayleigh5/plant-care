@@ -42,11 +42,16 @@
             </div>
             <div class="form-group">
                 <label for="tasks">Tasks</label>
-                <input class="form-control" [formControl]="$any(tasksForm).controls[i]" *ngFor="let control of tasksForm.controls; index as i"/>
+                <div *ngFor="let control of tasksForm.controls; index as i" class="task-item">
+                    <input class="form-control" [formControl]="$any(tasksForm).controls[i]"/>
+                    <button class="btn btn-danger" (click)="removeTask(i)">X</button>
+                </div>
+                <button (click)="addTasksForm()" class="btn btn-sm btn-secondary">+ Add task</button>
             </div>
         </form>
 
         <div class="mt-2">
+
             <button (click)="deletePlant()" class="btn btn-danger">
                 Delete
             </button>

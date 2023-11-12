@@ -13,12 +13,15 @@
 
       <div class="form-group">
         <label for="tasks">Tasks</label>
-        <input class="form-control" [formControl]="$any(tasksForm).controls[i]" *ngFor="let control of tasksForm.controls; index as i"/>
+        <div *ngFor="let control of tasksForm.controls; index as i" class="task-item">
+          <input class="form-control" [formControl]="$any(tasksForm).controls[i]"/>
+          <button class="btn btn-danger" (click)="removeTask(i)">X</button>
+        </div>
       </div>
 
-      <button (click)="addTasksForm()" class="btn btn-success">+ Add task</button>
-
-      <button (click)="savePlant()" class="btn btn-success">Submit</button>
+      <button (click)="addTasksForm()" class="btn btn-sm btn-secondary">+ Add task</button>
+      <br><br>
+      <button (click)="savePlant()" class="btn btn-success">Save plant</button>
     </div>
 
     <div *ngIf="submitted">
