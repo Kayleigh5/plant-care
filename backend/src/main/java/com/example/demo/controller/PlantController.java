@@ -96,5 +96,16 @@ public class PlantController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	@DeleteMapping("/plants/{id}")
+	public ResponseEntity<HttpStatus> deletePlant(@PathVariable("id") long id) {
+		try {
+			plantRepository.deleteById(id);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
     
 }
