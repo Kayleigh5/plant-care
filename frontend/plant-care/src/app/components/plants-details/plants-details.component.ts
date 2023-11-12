@@ -25,6 +25,7 @@ export class PlantsDetailsComponent {
   tasksForm = new FormArray<any>([]);
 
   message = '';
+  error = '';
 
   constructor(
     private plantService: PlantService,
@@ -46,7 +47,10 @@ export class PlantsDetailsComponent {
         console.log(data);
         this.fillTasks();
       },
-      error: (e) => console.error(e)
+      error: (e) => {
+        this.error = 'Unable to get plant...';
+        console.error(e);
+      }
     });
   }
 
@@ -60,11 +64,16 @@ export class PlantsDetailsComponent {
       .subscribe({
         next: (res) => {
           console.log(res);
+          this.error = '';
           this.message = res.message
             ? res.message
             : 'This plant was updated successfully!';
         },
-        error: (e) => console.error(e)
+        error: (e) => {
+          console.error(e);
+          this.message = '';
+          this.error = 'Unable to update plant...';
+        }
       });
   }
 
@@ -73,8 +82,12 @@ export class PlantsDetailsComponent {
       next: (res) => {
         console.log(res);
         this.router.navigate(['/plants']);
+        this.error = '';
       },
-      error: (e) => console.error(e)
+      error: (e) => {
+        console.error(e);
+        this.error = 'Unable to delete plant...';
+      }
     });
   }
 

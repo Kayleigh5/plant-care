@@ -24,9 +24,11 @@
       <button (click)="savePlant()" class="btn btn-success">Save plant</button>
     </div>
 
+    <div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+
     <div *ngIf="submitted">
-      <h4>Plant was submitted successfully!</h4>
-      <button class="btn btn-success" (click)="newPlant()">Add</button>
+      <div class="alert alert-success">Plant was submitted successfully!</div>
+      <button class="btn btn-primary" (click)="newPlant()">Add another plant</button>
     </div>
   </div>
 </div>

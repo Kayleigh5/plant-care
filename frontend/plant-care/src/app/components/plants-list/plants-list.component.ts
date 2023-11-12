@@ -19,6 +19,8 @@ export class PlantsListComponent {
   currentIndex = -1;
   title = '';
 
+  error = '';
+
   constructor(private plantService: PlantService) {}
 
   ngOnInit(): void {
@@ -30,8 +32,12 @@ export class PlantsListComponent {
       next: (data) => {
         this.plants = data;
         console.log(data);
+        this.error = '';
       },
-      error: (e) => console.error(e)
+      error: (e) => {
+        this.error = 'Unable to retrieve plants...';
+        console.error(e);
+      }
     });
   }
 
@@ -51,8 +57,12 @@ export class PlantsListComponent {
       next: (res) => {
         console.log(res);
         this.refreshList();
+        this.error = '';
       },
-      error: (e) => console.error(e)
+      error: (e) => {
+        this.error = 'Unable to remove plant...';
+        console.error(e);
+      }
     });
   }
 
@@ -64,8 +74,12 @@ export class PlantsListComponent {
       next: (data) => {
         this.plants = data;
         console.log(data);
+        this.error = '';
       },
-      error: (e) => console.error(e)
+      error: (e) => {
+        this.error = 'Unable to find plant...';
+        console.error(e);
+      }
     });
   }
 }

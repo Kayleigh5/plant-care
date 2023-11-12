@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="col-md-6">
-      <h4>Plants List</h4>
+      <h4>My Plants</h4>
       <ul class="list-group">
         <li
           class="list-group-item"
@@ -31,9 +31,12 @@
         </li>
       </ul>
   
-      <button class="m-3 btn btn-sm btn-danger" (click)="removeAllPlants()">
+      <button class="mt-3 btn btn-danger" (click)="removeAllPlants()">
         Remove All
       </button>
+
+      <div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+      
     </div>
     <div class="col-md-6">
       <app-plants-details

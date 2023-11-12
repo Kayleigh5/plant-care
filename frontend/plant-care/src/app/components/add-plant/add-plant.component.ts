@@ -21,6 +21,8 @@ export class AddPlantComponent {
 
   tasksForm = new FormArray<any>([]);
 
+  error = '';
+
   constructor(private plantService: PlantService) {}
 
   ngOnInit():void {
@@ -36,10 +38,14 @@ export class AddPlantComponent {
 
     this.plantService.create(data).subscribe({
       next: (res) => {
+        this.error = '';
         console.log(res);
         this.submitted = true;
       },
-      error: (e) => console.error(e)
+      error: (e) => {
+        this.error = 'Unable to save plant...';
+        console.error(e);
+      }
     });
   }
 
