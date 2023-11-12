@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { PlantService } from '../../services/plant.service';
 import { Plant } from '../../models/plant.model';
 import { PlantsDetailsComponent } from '../plants-details/plants-details.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-plants-list',
   standalone: true,
-  imports: [CommonModule, PlantsDetailsComponent],
+  imports: [CommonModule, PlantsDetailsComponent, FormsModule],
   templateUrl: './plants-list.component.html',
   styleUrl: './plants-list.component.scss'
 })
