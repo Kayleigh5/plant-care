@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormArray, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Plant } from '../../models/plant.model';
 import { PlantService } from '../../services/plant.service';
 
 @Component({
   selector: 'app-add-plant',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './add-plant.component.html',
   styleUrl: './add-plant.component.scss'
 })
@@ -19,13 +19,19 @@ export class AddPlantComponent {
   };
   submitted = false;
 
+  tasksForm = new FormArray<any>([]);
+
   constructor(private plantService: PlantService) {}
+
+  ngOnInit():void {
+    this.addTasksForm();
+  }
 
   savePlant(): void {
     const data = {
       title: this.plant.title,
       description: this.plant.description,
-      tasks: this.plant.tasks
+      tasks: this.tasksForm.value
     };
 
     this.plantService.create(data).subscribe({
@@ -44,5 +50,9 @@ export class AddPlantComponent {
       description: '',
       tasks: []
     };
+  }
+
+  addTasksForm() {
+    this.tasksForm.push(new FormControl(''));
   }
 }

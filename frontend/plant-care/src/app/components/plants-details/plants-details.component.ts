@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormArray, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { Plant } from '../../models/plant.model';
 import { PlantService } from '../../services/plant.service';
@@ -9,7 +9,7 @@ import { PlantService } from '../../services/plant.service';
 @Component({
   selector: 'app-plants-details',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
   templateUrl: './plants-details.component.html',
   styleUrl: './plants-details.component.scss'
 })
@@ -19,7 +19,10 @@ export class PlantsDetailsComponent {
   @Input() currentPlant: Plant = {
     title: '',
     description: '',
+    tasks: []
   };
+
+  tasksForm = new FormArray<any>([]);
 
   message = '';
 
@@ -41,6 +44,7 @@ export class PlantsDetailsComponent {
       next: (data) => {
         this.currentPlant = data;
         console.log(data);
+        this.fillTasks();
       },
       error: (e) => console.error(e)
     });
@@ -48,6 +52,8 @@ export class PlantsDetailsComponent {
 
   updatePlant(): void {
     this.message = '';
+
+    this.currentPlant.tasks = this.tasksForm.value;
 
     this.plantService
       .update(this.currentPlant.id, this.currentPlant)
@@ -70,5 +76,15 @@ export class PlantsDetailsComponent {
       },
       error: (e) => console.error(e)
     });
+  }
+
+  fillTasks(): void {
+    console.log(this.currentPlant.tasks);
+    if (this.currentPlant && this.currentPlant.tasks) {
+      for (let task of this.currentPlant.tasks) {
+        this.tasksForm.push(new FormControl(task));
+      }
+    }
+    
   }
 }
