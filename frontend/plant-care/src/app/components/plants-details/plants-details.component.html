@@ -1,0 +1,55 @@
+<div *ngIf="viewMode; else editable">
+    <div *ngIf="currentPlant.id">
+        <h4>Plant</h4>
+        <div>
+            <label><strong>Title:</strong></label> {{ currentPlant.title }}
+        </div>
+        <div>
+            <label><strong>Description:</strong></label>
+            {{ currentPlant.description }}
+        </div>
+
+        <a class="" routerLink="/plants/{{ currentPlant.id }}">
+            Edit
+        </a>
+    </div>
+
+    <div *ngIf="!currentPlant">
+        <br />
+        <p>Please click on a Plant...</p>
+    </div>
+</div>
+
+<ng-template #editable>
+    <div *ngIf="currentPlant.id" class="edit-form">
+        <h4>Plant</h4>
+        <form>
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" [(ngModel)]="currentPlant.title" name="title" />
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" class="form-control" id="description" [(ngModel)]="currentPlant.description"
+                    name="description" />
+            </div>
+        </form>
+
+        <div class="mt-2">
+            <button (click)="deletePlant()" class="btn btn-danger">
+                Delete
+            </button>
+
+            <button type="submit" (click)="updatePlant()" class="btn btn-primary">
+                Update
+            </button>
+        </div>
+
+        <p>{{ message }}</p>
+    </div>
+
+    <div *ngIf="!currentPlant.id">
+        <br />
+        <p>Cannot access this Plant...</p>
+    </div>
+</ng-template>

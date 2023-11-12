@@ -1,13 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
 import { Plant } from '../../models/plant.model';
 import { PlantService } from '../../services/plant.service';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-plants-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './plants-details.component.html',
   styleUrl: './plants-details.component.scss'
 })
