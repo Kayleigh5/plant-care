@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,13 +38,21 @@ public class PlantController {
 			if (plants.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
-
-			System.out.println(plants);
 			return new ResponseEntity<>(plants, HttpStatus.OK);
 		} catch (Exception e) {
-			System.out.println(e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	@DeleteMapping("/plants")
+	public ResponseEntity<HttpStatus> deleteAllPlants() {
+		try {
+			plantRepository.deleteAll();
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 	}
     
 }
